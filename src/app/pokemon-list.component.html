@@ -1,0 +1,60 @@
+<section class="hero-panel">
+  <div class="hero-copy">
+    <div class="hero-badge">PokéBall Academy</div>
+    <h1>Search your Pokémon roster</h1>
+    <p>Find any Pokémon by name or number, then open its detail page for abilities, stats, moves, and type info.</p>
+  </div>
+
+  <div class="hero-controls">
+    <label class="search-field">
+      <span>Search Pokémon</span>
+      <input
+        type="search"
+        placeholder="e.g. pikachu or 25"
+        [(ngModel)]="searchTerm"
+        autocomplete="off"
+      />
+    </label>
+    <div class="status-row">
+      <span class="result-count">{{ filteredPokemon.length }} Pokémon found</span>
+      <span class="hint">Try first 150 Pokémon for a full classic team.</span>
+    </div>
+  </div>
+</section>
+
+<section class="grid-shell">
+  <div *ngIf="loading" class="loader-shell">
+    <div class="spinner"></div>
+    <p>Loading your Pokédex...</p>
+  </div>
+
+  <div *ngIf="error" class="error-box">
+    Unable to load Pokémon data. Check your connection and refresh.
+  </div>
+
+  <div *ngIf="!loading && !error && filteredPokemon.length === 0" class="empty-state">
+    No Pokémon match your search. Try another name or number.
+  </div>
+
+  <div class="card-grid" *ngIf="!loading && !error">
+    <a
+      *ngFor="let pokemon of filteredPokemon"
+      class="pokemon-card"
+      [routerLink]="['/pokemon', pokemon.name]"
+    >
+      <div class="card-art">
+        <img
+          [src]="pokemonService.getSpriteUrl(getPokemonId(pokemon.url))"
+          [alt]="pokemon.name + ' sprite'"
+          loading="lazy"
+        />
+        <div class="poke-number">#{{ getPokemonId(pokemon.url) }}</div>
+      </div>
+      <h2>{{ pokemon.name | titlecase }}</h2>
+      <div class="card-footer">
+        <span>Open details</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+  </div>
+</section>

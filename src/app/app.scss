@@ -1,0 +1,82 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: radial-gradient(circle at top left, #fff5f1 0%, #ffd6cc 28%, #f8f1ee 100%);
+  color: #111827;
+  font-family: 'Inter', sans-serif;
+}
+
+:host::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(249, 115, 22, 0.18), transparent 18%),
+    radial-gradient(circle at 85% 12%, rgba(239, 68, 68, 0.12), transparent 12%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.12), transparent 14%);
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.5rem;
+  width: min(1200px, 100% - 2rem);
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(31, 41, 55, 0.08);
+  border-radius: 28px;
+  backdrop-filter: blur(12px);
+}
+
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pokeball-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #fff 24%, #ef4444 24%, #ef4444 52%, #000 52%, #000 58%, #fff 58%, #fff 100%);
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.pokeball-icon::before {
+  content: '';
+  position: absolute;
+  inset: 1.05rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 0.35rem solid #1f2937;
+}
+
+.logo-block h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.logo-block p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.topbar nav a {
+  color: #111827;
+  font-weight: 700;
+}

@@ -1,0 +1,77 @@
+<section class="detail-shell" *ngIf="pokemon$ | async as pokemon; else loadingState">
+  <div class="detail-header">
+    <a routerLink="" class="back-link">← Back to list</a>
+    <div class="badge-row">
+      <span class="detail-badge">#{{ pokemon.id }}</span>
+      <span
+        class="type-chip"
+        *ngFor="let type of pokemon.types"
+        [style.background]="pokemonService.getTypeColor(type.type.name)"
+      >
+        {{ type.type.name | titlecase }}
+      </span>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-art">
+      <div class="pokeball-circle"></div>
+      <img
+        [src]="pokemonService.getSpriteUrl(pokemon.id)"
+        [alt]="pokemon.name + ' artwork'"
+      />
+    </div>
+
+    <div class="detail-info">
+      <div class="detail-title">
+        <div>
+          <p class="label">Pokémon profile</p>
+          <h1>{{ pokemon.name | titlecase }}</h1>
+        </div>
+        <span class="xp-pill">EXP {{ pokemon.base_experience }}</span>
+      </div>
+
+      <div class="stats-row">
+        <div>
+          <strong>Height</strong>
+          <span>{{ heightCM(pokemon.height) }} cm</span>
+        </div>
+        <div>
+          <strong>Weight</strong>
+          <span>{{ weightKG(pokemon.weight) }} kg</span>
+        </div>
+        <div>
+          <strong>Abilities</strong>
+          <span>{{ pokemon.abilities.map((item) => item.ability.name).join(', ') }}</span>
+        </div>
+      </div>
+
+      <div class="detail-panel">
+        <h2>Base stats</h2>
+        <div class="stat-list">
+          <div class="stat-row" *ngFor="let stat of pokemon.stats">
+            <span>{{ formatStatName(stat.stat.name) }}</span>
+            <strong>{{ stat.base_stat }}</strong>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="stat.base_stat / 2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="moves-panel">
+        <h2>Notable moves</h2>
+        <div class="move-list">
+          <span *ngFor="let move of pokemon.moves.slice(0, 8)">{{ move.move.name | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #loadingState>
+  <div class="loading-screen">
+    <div class="spinner"></div>
+    <p>Loading Pokémon details...</p>
+  </div>
+</ng-template>
